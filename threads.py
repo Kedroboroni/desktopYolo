@@ -1,5 +1,6 @@
 """ Файл в котором описаны потоки и процессы
     (Работы Yolo8, окна приложения, отдельных функций) """
+
 from PySide6.QtCore import QThread, Signal, Qt, Slot, QTimer
 from PySide6.QtGui import QPixmap, QImage
 import cv2
@@ -8,16 +9,8 @@ from ultralytics import YOLO
 from events import preparationArray, ndarray2qpixmap, postVideo
 from qimage2ndarray import array2qimage
 
-def preparationArray(model, array):
-    results =  model.predict(array, verbose = False)
-    array =cv2.resize(results[0].plot(), (661, 471), interpolation=cv2.INTER_AREA)
-    return array
 
 
-def ndarray2qpixmap(array):
-    array = array2qimage(array)
-    pixArray = QPixmap.fromImage(array)
-    return pixArray
 
 
 class videoThread(QThread):
@@ -36,8 +29,6 @@ class videoThread(QThread):
         timerFps = QTimer()
         timerFps.start(30)
         timerFps.timeout.connect(lambda: postVideo(parent, model, cap, self))
-        #if ret:
-            #self.pixmapSignal.emit(array)
         cap.release()
 
     def stop(self):

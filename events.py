@@ -8,7 +8,7 @@ from ultralytics import YOLO
 from qimage2ndarray import array2qimage
 from threading import Thread, Condition
 
-
+ 
 
 pauseFlag = False
 condition = Condition()
@@ -80,3 +80,5 @@ def resumeVideo():
         # Уведомляем все ожидающие потоки об изменении условия
         condition.notify_all()
 
+if __name__ == "__main__":
+    print(1231)
